@@ -1,7 +1,9 @@
 # Importing Pygame.
 import pygame
 from DoNotTouch import player
-from Globals import PythonDefaults
+from ..Globals.PythonDefaults import colors
+
+print(colors.WHITE)
 
 # Pygame must be initialized before running.
 pygame.init()
