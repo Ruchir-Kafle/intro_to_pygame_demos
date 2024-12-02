@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
 
-        img = pygame.image.load().convert()
+        img = pygame.image.load("../../../DO-NOT-TOUCH/Assets/player.jpg").convert()
         self.images.append(img)
         self.image = self.images[0]
         self.rect = self.image.get_rect()
