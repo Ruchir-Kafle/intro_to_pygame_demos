@@ -31,8 +31,8 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    # Setting the screen to a white background.
-    screen.fill((255, 255, 255))
+    # Setting the screen to a black background.
+    screen.fill((0, 0, 0))
 
     # End commands.
     # Rendering the game.
