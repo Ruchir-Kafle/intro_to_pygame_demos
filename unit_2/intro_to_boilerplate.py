@@ -1,4 +1,4 @@
-# Importing Pygame.
+# Importing modules.
 import sys
 import pygame
 from globals.python_defaults import player
@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 
 # Creating a window
 # Screen size.
-screen_size = (1000, 714) 
+screen_size = (1000, 700) 
 
 # Creating the actual screen.
 screen = pygame.display.set_mode(screen_size)
@@ -38,8 +38,7 @@ while not done:
         # If the user presses the "X" button in the top right corner, done will be set to true, ending the loop, and thus the game.
         if event.type == pygame.QUIT:
             done = True
-        
-
+    
     # Getting user input.
     pressed = pygame.key.get_pressed()
     
