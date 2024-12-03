@@ -1,7 +1,9 @@
 # Importing Pygame.
+import sys
 import pygame
-from DoNotTouch import player
-from ..Globals.PythonDefaults import colors
+# from do_not_touch import player
+from globals.python_defaults import colors
+from globals.python_defaults import fonts
 
 print(colors.WHITE)
 
@@ -38,6 +40,13 @@ while not done:
     # Setting the screen to a black background.
     screen.fill((0, 0, 0))
 
+    # the_player = player.Player()
+
+    # player_list = pygame.sprite.Group()
+    # player_list.add(the_player)
+
+    # player_list.draw(screen)
+
     # End commands.
     # Rendering the game.
     pygame.display.flip()
@@ -45,5 +54,6 @@ while not done:
     # Capping the ticks, and thus the fps, to 60.
     clock.tick(60)
 
-# Ending the game when the loop is finished. This command is the one that actually ends Pygame. If the loop ends and this command is not here, the game will not actually end.
+# Ending the game when the loop is finished. These commands actually end Pygame. If the loop ends and these commands are not here, the game will not actually end.
 pygame.quit()
+sys.exit()
