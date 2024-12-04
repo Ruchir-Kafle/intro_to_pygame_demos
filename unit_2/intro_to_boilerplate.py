@@ -25,7 +25,7 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("unit-01: Introduction to Boilerplate")
 
 # Player variables, DO NOT TOUCH!
-the_player = player.Player()
+the_player = player.Player(screen_size[0])
 player_list = pygame.sprite.Group()
 player_list.add(the_player)
 
