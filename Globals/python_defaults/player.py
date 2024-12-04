@@ -3,19 +3,8 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.images = []
-
-        self.player_scale = (99, 57)
-
-        self.img = pygame.image.load("globals/assets/character-sprite.png").convert()
-        self.img = pygame.transform.scale(self.img, self.player_scale)
-
-        self.images.append(self.img)
-        self.image = self.images[0]
-        self.rect = self.image.get_rect()
-
-        self.rect.x = 0
-        self.rect.y = 0
+        
+        self.player(False)
 
         self.acceleration_due_to_gravity = 0.25
         self.current_gravity = 0
@@ -26,6 +15,30 @@ class Player(pygame.sprite.Sprite):
         self.apply_jump = False
 
         self.walk_speed = 5
+
+    def player(self, direction):
+        try:
+            if self.rect:
+                self.store_x = self.rect.x
+                self.store_y = self.rect.y
+        except AttributeError:
+            self.store_x = 0
+            self.store_y = 0
+
+        self.images = []
+
+        self.player_scale = (99, 57)
+        
+        self.img = pygame.image.load("globals/assets/character-sprite.png").convert()
+        self.img = pygame.transform.scale(self.img, self.player_scale)
+        self.img = pygame.transform.flip(self.img, direction, False)
+
+        self.images.append(self.img)
+        self.image = self.images[0]
+        self.rect = self.image.get_rect()
+
+        self.rect.x = self.store_x
+        self.rect.y = self.store_y
 
     def apply_gravity(self, screen_y):
         if not self.apply_jump:
@@ -58,11 +71,11 @@ class Player(pygame.sprite.Sprite):
     def user_input_process(self, pressed, screen_x, screen_y):
         if pressed[pygame.K_a]:
             self.walk(-1, screen_x, screen_y)
-            pygame.transform.flip(self.img, True, False)
+            self.player(True)
 
         if pressed[pygame.K_d]:
             self.walk(1, screen_x, screen_y)
-            pygame.transform.flip(self.img, True, False)
+            self.player(False)
 
         if pressed[pygame.K_SPACE]:
             self.jump(screen_y, True)
