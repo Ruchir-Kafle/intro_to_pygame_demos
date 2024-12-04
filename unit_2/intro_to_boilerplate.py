@@ -16,16 +16,16 @@ clock = pygame.time.Clock()
 
 # Creating a window
 # Screen size.
-screen_size = (1000, 700) 
+screen_size = {"x": 1000, "y": 700}
 
 # Creating the actual screen.
-screen = pygame.display.set_mode(screen_size)
+screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
 
 # Giving the screen a name.
 pygame.display.set_caption("unit-01: Introduction to Boilerplate")
 
 # Player variables, DO NOT TOUCH!
-the_player = player.Player(screen_size[0])
+the_player = player.Player(screen_size)
 player_list = pygame.sprite.Group()
 player_list.add(the_player)
 
@@ -41,13 +41,13 @@ while not done:
     
     # Getting user input.
     pressed = pygame.key.get_pressed()
-    the_player.user_input_process(pressed, *screen_size)
+    the_player.user_input_process(pressed, screen_size)
 
     # Setting the screen to a black background.
     screen.fill(colors.BLACK)
 
     # Player functions, DO NOT TOUCH.
-    the_player.run(screen_size[1])
+    the_player.run(screen_size)
     player_list.draw(screen)
 
     # End commands.
