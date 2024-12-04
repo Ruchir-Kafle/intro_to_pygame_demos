@@ -41,15 +41,7 @@ while not done:
     
     # Getting user input.
     pressed = pygame.key.get_pressed()
-    
-    if pressed[pygame.K_a]:
-        the_player.walk(-1, screen_size[0])
-
-    if pressed[pygame.K_d]:
-        the_player.walk(1, screen_size[0])
-
-    if pressed[pygame.K_SPACE]:
-        the_player.jump(screen_size[1], True)
+    the_player.user_input_process(pressed, *screen_size)
 
     # Setting the screen to a black background.
     screen.fill(colors.BLACK)

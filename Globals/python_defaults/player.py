@@ -52,9 +52,21 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.y -= self.current_jump
 
-    def walk(self, direction, screen_x):
+    def walk(self, direction, screen_x, screen_y):
         self.rect.x += (direction * self.walk_speed)
     
+    def user_input_process(self, pressed, screen_x, screen_y):
+        if pressed[pygame.K_a]:
+            self.walk(-1, screen_x, screen_y)
+            pygame.transform.flip(self.img, True, False)
+
+        if pressed[pygame.K_d]:
+            self.walk(1, screen_x, screen_y)
+            pygame.transform.flip(self.img, True, False)
+
+        if pressed[pygame.K_SPACE]:
+            self.jump(screen_y, True)
+
     def run(self, screen_y):
         self.apply_gravity(screen_y)
         self.jump(screen_y, False)
