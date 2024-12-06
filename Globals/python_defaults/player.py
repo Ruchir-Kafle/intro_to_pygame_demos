@@ -19,8 +19,15 @@ class Player(pygame.sprite.Sprite):
     def player(self, direction, screen_size):
         self.images = []
 
-        self.player_scale = {"x": 99, "y": 57}
-        
+        self.img = pygame.image.load("globals/assets/character-sprite.png").convert_alpha()
+        self.img = pygame.transform.scale_by(self.img, 1/3)
+        self.img = pygame.transform.flip(self.img, direction, False)
+
+        self.images.append(self.img)
+        self.image = self.images[0]
+
+        self.player_scale = {"x": self.image.get_width(), "y": self.image.get_height()}
+
         try:
             if self.rect:
                 self.store_x = self.rect.x
@@ -28,13 +35,7 @@ class Player(pygame.sprite.Sprite):
         except AttributeError:
             self.store_x = (screen_size["x"] - self.player_scale["x"]) / 2
             self.store_y = 0
-        
-        self.img = pygame.image.load("globals/assets/character-sprite.png").convert()
-        self.img = pygame.transform.scale(self.img, (self.player_scale["x"], self.player_scale["y"]))
-        self.img = pygame.transform.flip(self.img, direction, False)
 
-        self.images.append(self.img)
-        self.image = self.images[0]
         self.rect = self.image.get_rect()
 
         self.rect.x = self.store_x
@@ -69,15 +70,15 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += (direction * self.walk_speed)
     
     def user_input_process(self, pressed, screen_size):
-        if pressed[pygame.K_a]:
+        if pressed[pygame.K_a] or pressed[pygame.K_LEFT]:
             self.walk(-1, screen_size)
             self.player(True, screen_size)
 
-        if pressed[pygame.K_d]:
+        if pressed[pygame.K_d] or pressed[pygame.K_RIGHT]:
             self.walk(1, screen_size)
             self.player(False, screen_size)
 
-        if pressed[pygame.K_SPACE]:
+        if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
             self.jump(screen_size, True)
 
     def run(self, screen_size):

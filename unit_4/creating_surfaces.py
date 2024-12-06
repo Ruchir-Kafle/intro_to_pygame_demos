@@ -22,7 +22,7 @@ screen_size = {"x": 1000, "y": 700}
 screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
 
 # Giving the screen a name.
-pygame.display.set_caption("unit-02: Introduction to Boilerplate")
+pygame.display.set_caption("unit-04: Images and Surfaces")
 
 # Player variables, DO NOT TOUCH!
 the_player = player.Player(screen_size)
@@ -45,6 +45,14 @@ while not done:
 
     # Setting the screen to a black background. Try changing the color from BLACK to something else!
     screen.fill(colors.BLACK)
+
+    # Type out your code below! Let's make a basic surface and then an image surface!
+    block = pygame.Surface((200, 200))
+    block.fill(colors.RED)
+    screen.blit(block, ((screen_size["x"] - block.get_width() - 50, screen_size["y"] - block.get_height())))
+
+    image = pygame.image.load("unit_4/do_not_touch/geometry_dash_block.png").convert_alpha()
+    screen.blit(image, (50, screen_size["y"] - image.get_height()))
 
     # Player functions, DO NOT TOUCH.
     the_player.run(screen_size)

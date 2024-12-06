@@ -22,7 +22,7 @@ screen_size = {"x": 1000, "y": 700}
 screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
 
 # Giving the screen a name.
-pygame.display.set_caption("unit-02: Introduction to Boilerplate")
+pygame.display.set_caption("unit-03: Getting User Input")
 
 # Player variables, DO NOT TOUCH!
 the_player = player.Player(screen_size)
@@ -38,12 +38,16 @@ while not done:
         # If the user presses the "X" button in the top right corner, done will be set to true, ending the loop, and thus the game.
         if event.type == pygame.QUIT:
             done = True
+
+        # Try making a new block of code below with the same amount of indentation as this line.
+        # Maybe something like... the block up above? But maybe instead of listening for a quit,
+        # listen for a keydown input?
     
     # Getting user input.
     pressed = pygame.key.get_pressed()
     the_player.user_input_process(pressed, screen_size)
 
-    # Setting the screen to a black background. Try changing the color from BLACK to something else!
+    # Setting the screen to a black background.
     screen.fill(colors.BLACK)
 
     # Player functions, DO NOT TOUCH.
