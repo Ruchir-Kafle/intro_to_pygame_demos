@@ -41,7 +41,7 @@ while not done:
     
     # Getting user input.
     pressed = pygame.key.get_pressed()
-    the_player.user_input_process(pressed, screen_size)
+    the_player.process_user_input(pressed, screen_size)
 
     # Setting the screen to a black background. Try changing the color from BLACK to something else!
     screen.fill(colors.BLACK)
@@ -56,7 +56,7 @@ while not done:
     block_position = (screen_size["x"] - block.get_width() - 50, screen_size["y"] - block.get_height())
     block_rect.topleft = block_position
 
-    image = pygame.image.load("unit_4/do_not_touch/geometry_dash_block.png").convert_alpha()
+    image = pygame.image.load("unit_5/do_not_touch/geometry_dash_block.png").convert_alpha()
     image = pygame.transform.scale_by(image, 1/2)
 
     image_rect = image.get_rect()
@@ -68,10 +68,6 @@ while not done:
     surface_array.append(block_rect)
     surface_array.append(image_rect)
     surface_array.append(new_rect)
-
-    for rect in surface_array:
-        if the_player.colliderect(rect):
-            print("x")
 
     pygame.draw.rect(screen, colors.RED, block_rect)
     pygame.draw.rect(screen, colors.RED, image_rect)
@@ -85,7 +81,7 @@ while not done:
 
     # End commands.
     # Rendering the game.
-    pygame.display.flip()
+    pygame.display.update()
     
     # Capping the ticks, and thus the fps, to 60.
     clock.tick(60)

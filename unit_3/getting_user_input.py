@@ -45,7 +45,7 @@ while not done:
     
     # Getting user input.
     pressed = pygame.key.get_pressed()
-    the_player.user_input_process(pressed, screen_size)
+    the_player.process_user_input(pressed, screen_size)
 
     # Setting the screen to a black background.
     screen.fill(colors.BLACK)
@@ -56,7 +56,7 @@ while not done:
 
     # End commands.
     # Rendering the game.
-    pygame.display.flip()
+    pygame.display.update()
     
     # Capping the ticks, and thus the fps, to 60.
     clock.tick(60)

@@ -1,10 +1,10 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, screen_size):
+    def __init__(self, tile_size):
         pygame.sprite.Sprite.__init__(self)
         
-        self.player(False, screen_size)
+        self.player(tile_size)
 
         self.acceleration_due_to_gravity = 0.25
         self.current_gravity = 0
@@ -16,12 +16,11 @@ class Player(pygame.sprite.Sprite):
 
         self.walk_speed = 5
 
-    def player(self, direction, screen_size):
+    def player(self, tile_size):
         self.images = []
 
-        self.img = pygame.image.load("globals/assets/character-sprite.png").convert_alpha()
-        self.img = pygame.transform.scale_by(self.img, 1/3)
-        self.img = pygame.transform.flip(self.img, direction, False)
+        self.img = pygame.image.load("final_project/assets/player.webp").convert_alpha()
+        self.img = pygame.transform.scale(self.img, (tile_size["x"], tile_size["y"]))
 
         self.images.append(self.img)
         self.image = self.images[0]
@@ -33,7 +32,7 @@ class Player(pygame.sprite.Sprite):
                 self.store_x = self.rect.x
                 self.store_y = self.rect.y
         except AttributeError:
-            self.store_x = (screen_size["x"] - self.player_scale["x"]) / 2
+            self.store_x = tile_size["x"]
             self.store_y = 0
 
         self.rect = self.image.get_rect()
@@ -66,21 +65,14 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.y -= self.current_jump
 
-    def walk(self, direction, screen_size):
+    def walk(self, direction):
         self.rect.x += (direction * self.walk_speed)
     
     def process_user_input(self, pressed, screen_size):
-        if pressed[pygame.K_a] or pressed[pygame.K_LEFT]:
-            self.walk(-1, screen_size)
-            self.player(True, screen_size)
-
-        if pressed[pygame.K_d] or pressed[pygame.K_RIGHT]:
-            self.walk(1, screen_size)
-            self.player(False, screen_size)
-
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
             self.jump(screen_size, True)
 
     def run(self, screen_size):
         self.apply_gravity(screen_size)
         self.jump(screen_size, False)
+        self.walk(0)
