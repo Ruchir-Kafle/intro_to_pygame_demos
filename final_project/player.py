@@ -1,18 +1,18 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, tile_size):
+    def __init__(self, tile_size, screen_size):
         pygame.sprite.Sprite.__init__(self)
-        
+
         self.player(tile_size)
 
-        self.acceleration_due_to_gravity = 0.25
-        self.current_gravity = 0
+        self.floor = screen_size["y"]
 
-        self.jump_increment = 10
-        self.jump_decrement = 0.25
-        self.current_jump = 0
-        self.apply_jump = False
+        self.velocity_y = 0
+        
+        self.acceleration_due_to_gravity = 0.5
+
+        self.jump_maximum = 10
 
         self.walk_speed = 5
 
@@ -40,39 +40,40 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.store_x
         self.rect.y = self.store_y
 
-    def apply_gravity(self, screen_size):
-        if not self.apply_jump:
-            if self.rect.y + self.current_gravity < screen_size["y"] - self.player_scale["y"]:
-                self.current_gravity += self.acceleration_due_to_gravity
-            else:
-                self.current_gravity = 0
+    def apply_gravity(self):
+        if self.rect.bottom + self.velocity_y < self.floor:
+            self.velocity_y += self.acceleration_due_to_gravity
+        else:
+            self.velocity_y = 0
+            self.rect.bottom = self.floor
 
-            self.rect.y += self.current_gravity
+        self.rect.y += self.velocity_y
 
-    def jump(self, screen_size, jumping):
-        if jumping:
-            if self.rect.y + self.current_gravity == screen_size["y"] - self.player_scale["y"]:
-                self.apply_jump = True
-                self.current_jump = self.jump_increment
-                self.current_gravity = 0
-
-        if self.apply_jump:
-            if self.current_jump >= self.jump_decrement:
-                self.current_jump -= self.jump_decrement
-            else:
-                self.apply_jump = False
-                self.current_jump = 0
-
-        self.rect.y -= self.current_jump
+    def jump(self):
+        if self.rect.bottom == self.floor:
+            self.velocity_y = -1 * self.jump_maximum
 
     def walk(self, direction):
         self.rect.x += (direction * self.walk_speed)
     
-    def process_user_input(self, pressed, screen_size):
+    def process_user_input(self, pressed):
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
-            self.jump(screen_size, True)
+            self.jump()
+        
+        if pressed[pygame.K_d] or pressed[pygame.K_RIGHT]:
+            self.walk(1)
+        
+        if pressed[pygame.K_a] or pressed[pygame.K_LEFT]:
+            self.walk(-1)
 
-    def run(self, screen_size):
-        self.apply_gravity(screen_size)
-        self.jump(screen_size, False)
-        self.walk(0)
+    def check_collisions(self, collisions, screen_size):
+        if collisions:
+            self.floor = max([collision_object.rect.top] for collision_object in collisions)[0]
+            self.rect.bottom = self.floor
+        else:
+            self.floor = screen_size["y"]
+
+    def run(self, collisions, screen_size):
+        # self.walk(0)
+        self.apply_gravity()
+        self.check_collisions(collisions, screen_size)

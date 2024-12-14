@@ -15,12 +15,14 @@ screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
 pygame.display.set_caption("unit-04: Images and Surfaces")
 tile_size = {"x": 40, "y": 40}
 
-the_player = player.Player(tile_size)
-player_list = pygame.sprite.Group()
-player_list.add(the_player)
+player_group = pygame.sprite.Group()
+background_group = pygame.sprite.Group()
+tile_group = pygame.sprite.Group()
 
 level_map = tilemap.Map(screen_size, tile_size)
-tile_group = pygame.sprite.Group()
+
+the_player = player.Player(tile_size, screen_size)
+player_group.add(the_player)
 
 longest = 0
 start_position = tile_size["x"] * 10
@@ -48,7 +50,10 @@ for level in level_map.levels:
                     map_tile.rect.x = (filler_tile * (tile_size["x"])) + start_position
                     map_tile.rect.bottom = screen_size["y"] - level * (tile_size["y"])
 
-                    tile_group.add(map_tile)
+                    if previous_image == 0:
+                        background_group.add(map_tile)
+                    else:
+                        tile_group.add(map_tile)
 
             else:
                 start_position = tile_size["x"] * 10
@@ -57,7 +62,10 @@ for level in level_map.levels:
                 map_tile.rect.x = (count * (tile_size["x"])) + start_position
                 map_tile.rect.bottom = screen_size["y"] - level * (tile_size["y"])
 
-                tile_group.add(map_tile)
+                if tile == 0:
+                    background_group.add(map_tile)
+                else:
+                    tile_group.add(map_tile)
 
             previous_image = tile
 
@@ -68,14 +76,17 @@ while not done:
             done = True
     
     pressed = pygame.key.get_pressed()
-    the_player.process_user_input(pressed, screen_size)
+    the_player.process_user_input(pressed)
 
     screen.fill(colors.BLUE)
 
+    background_group.draw(screen)
     tile_group.draw(screen)
 
-    the_player.run(screen_size)
-    player_list.draw(screen)
+    current_collisions = pygame.sprite.spritecollide(the_player, tile_group, False)
+
+    the_player.run(current_collisions, screen_size)
+    player_group.draw(screen)
 
     pygame.display.update()
     
