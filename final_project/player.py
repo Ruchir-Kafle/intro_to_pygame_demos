@@ -10,8 +10,9 @@ class Player(pygame.sprite.Sprite):
 
         self.velocity_y = 0
         
-        self.acceleration_due_to_gravity = 0.5
+        self.acceleration_due_to_gravity = 0.75
 
+        self.applying_jump = False
         self.jump_maximum = 10
 
         self.walk_speed = 5
@@ -51,6 +52,7 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         if self.rect.bottom == self.floor:
+            self.applying_jump = True
             self.velocity_y = -1 * self.jump_maximum
 
     def walk(self, direction):
@@ -68,8 +70,10 @@ class Player(pygame.sprite.Sprite):
 
     def check_collisions(self, collisions, screen_size):
         if collisions:
-            self.floor = max([collision_object.rect.top] for collision_object in collisions)[0]
-            self.rect.bottom = self.floor
+            self.floor = max(collision_object.rect.top for collision_object in collisions) + 1
+
+            if not self.applying_jump:
+                self.rect.bottom = self.floor
         else:
             self.floor = screen_size["y"]
 

@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 
 screen_size = {"x": 1160, "y": 800}
 screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
-pygame.display.set_caption("unit-04: Images and Surfaces")
+pygame.display.set_caption("Final Project: Geometry Dash")
 tile_size = {"x": 40, "y": 40}
 
 player_group = pygame.sprite.Group()
@@ -37,25 +37,31 @@ for level in level_map.levels:
         
         for count, tile in list(enumerate(level_map.levels[level])):
             if tile == "x":
-                
-                if count == 0:
-                    start_position = 0
-                    iterations = 11
-                else:
-                    iterations = longest
-                    start_position = tile_size["x"] * 10
-                
-                for filler_tile in range(count, iterations):
-                    map_tile = block.Block(previous_image, (tile_size["x"], tile_size["y"]))
-                    map_tile.rect.x = (filler_tile * (tile_size["x"])) + start_position
-                    map_tile.rect.bottom = screen_size["y"] - level * (tile_size["y"])
 
-                    if previous_image == 0:
-                        background_group.add(map_tile)
-                    else:
-                        tile_group.add(map_tile)
+                pass
+
+                # if previous_image == 0:
+                #     continue
+
+                # print(previous_image)
+                
+                # iterations = longest
+                # start_position = tile_size["x"] * 10
+                
+                # for filler_tile in range(count, iterations):
+                #     map_tile = block.Block(previous_image, (tile_size["x"], tile_size["y"]))
+                #     map_tile.rect.x = (filler_tile * (tile_size["x"])) + start_position
+                #     map_tile.rect.bottom = screen_size["y"] - level * (tile_size["y"])
+
+                #     if previous_image == 0:
+                #         background_group.add(map_tile)
+                #     else:
+                #         tile_group.add(map_tile)
 
             else:
+                if tile == 0:
+                    continue
+
                 start_position = tile_size["x"] * 10
                 
                 map_tile = block.Block(tile, (tile_size["x"], tile_size["y"]))
@@ -78,7 +84,8 @@ while not done:
     pressed = pygame.key.get_pressed()
     the_player.process_user_input(pressed)
 
-    screen.fill(colors.BLUE)
+    background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
+    screen.blit(background, (0, 0))
 
     background_group.draw(screen)
     tile_group.draw(screen)
@@ -86,6 +93,7 @@ while not done:
     current_collisions = pygame.sprite.spritecollide(the_player, tile_group, False)
 
     the_player.run(current_collisions, screen_size)
+
     player_group.draw(screen)
 
     pygame.display.update()
