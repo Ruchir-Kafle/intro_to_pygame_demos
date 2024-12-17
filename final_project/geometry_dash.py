@@ -92,7 +92,7 @@ while not done:
 
     current_collisions = pygame.sprite.spritecollide(the_player, tile_group, False)
 
-    the_player.run(current_collisions, screen_size)
+    the_player.run(current_collisions)
 
     player_group.draw(screen)
 

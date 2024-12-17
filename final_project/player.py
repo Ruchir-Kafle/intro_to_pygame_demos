@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
 
         self.screen_size = screen_size
         self.tile_size = tile_size
-        self.intial_coordinates = {"x": self.tile_size["x"], "y": self.screen_size["y"]}
+        self.initial_coordinates = {"x": self.tile_size["x"], "y": self.screen_size["y"]}
 
         self.player()
 
@@ -36,8 +36,8 @@ class Player(pygame.sprite.Sprite):
                 self.store_x = self.rect.x
                 self.store_y = self.rect.y
         except AttributeError:
-            self.store_x = self.intial_coordinates["x"]
-            self.store_y = self.intial_coordinates["y"]
+            self.store_x = self.initial_coordinates["x"]
+            self.store_y = self.initial_coordinates["y"]
 
         self.rect = self.image.get_rect()
 
@@ -73,20 +73,23 @@ class Player(pygame.sprite.Sprite):
     def check_collisions(self, collisions):
         if collisions:
 
-            for block in collisions:
-
-                if block.type == 4 or block.type == 5:
-                    self.rect.x = self.intial_coordinates["x"]
-                    self.rect.bottom = self.intial_coordinates["y"]
-
             self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
+
 
             if self.rect.bottom > self.floor:
                 self.rect.bottom = self.floor
+
+            for block in collisions:
+
+                if block.type == 4 or block.type == 5:
+                    self.rect.x = self.initial_coordinates["x"]
+                    self.rect.bottom = self.initial_coordinates["y"]
+
+                    self.floor = self.screen_size["y"]
         else:
             self.floor = self.screen_size["y"]
 
     def run(self, collisions):
         # self.walk(0)
         self.apply_gravity()
-        self.check_collisions(collisions, self.screen_size)
+        self.check_collisions(collisions)
