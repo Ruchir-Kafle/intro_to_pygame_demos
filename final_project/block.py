@@ -6,18 +6,19 @@ class Block(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.image.load("final_project/assets/background_block.webp").convert_alpha()
+        self.type = type_of_block
 
-        if type_of_block == 0:
+        if self.type == 0:
             self.image = pygame.image.load("final_project/assets/background_block.webp").convert_alpha()
-        elif type_of_block == 1:
+        elif self.type == 1:
             self.image = pygame.image.load("final_project/assets/basic_block.webp").convert_alpha()
-        elif type_of_block == 2:
+        elif self.type == 2:
             self.image = pygame.image.load("final_project/assets/top_grid_block.webp").convert_alpha()
-        elif type_of_block == 3:
+        elif self.type == 3:
             self.image = pygame.image.load("final_project/assets/under_grid_block.webp").convert_alpha()
-        elif type_of_block == 4:
+        elif self.type == 4:
             self.image = pygame.image.load("final_project/assets/basic_spike.webp").convert_alpha()
-        elif type_of_block == 5:
+        elif self.type == 5:
             self.image = pygame.image.load("final_project/assets/basic_thorns.webp").convert_alpha()            
 
         self.image = pygame.transform.scale(self.image, size)
