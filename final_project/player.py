@@ -10,8 +10,6 @@ class Player(pygame.sprite.Sprite):
 
         self.player_offset = 0
 
-        self.player()
-
         self.floor = self. screen_size["y"]
 
         self.velocity_y = 0
@@ -21,6 +19,8 @@ class Player(pygame.sprite.Sprite):
         self.jump_maximum = 10
 
         self.walk_speed = 5
+
+        self.player()
 
     def player(self):
         self.images = []
@@ -59,6 +59,11 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom == self.floor:
             self.velocity_y = -1 * self.jump_maximum
 
+            if self.velocity_y != 0:
+                self.image = pygame.transform.rotate(self.image, 45)
+            else:
+                self.image = pygame.transform.rotate(self.image, 90)
+
     def walk(self, direction):
         self.player_offset += (direction * self.walk_speed)
     
@@ -92,6 +97,7 @@ class Player(pygame.sprite.Sprite):
             self.floor = self.screen_size["y"]
 
     def run(self, collisions):
+        
         # self.walk(0)
         self.apply_gravity()
         self.check_collisions(collisions)
