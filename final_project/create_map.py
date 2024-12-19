@@ -10,6 +10,7 @@ class Map():
         self.level_map = tilemap.TileMap(self.screen_size, self.tile_size)
 
         self.longest = 0
+        self.farthest = 0
         self.start_position = self.tile_size["x"] * 10
 
         for level in self.level_map.levels:        
@@ -53,5 +54,7 @@ class Map():
                         map_tile.rect.x = (count * (self.tile_size["x"])) + start_position
                         map_tile.initial_x = (count * (self.tile_size["x"])) + start_position
                         map_tile.rect.bottom = self.screen_size["y"] - level * (self.tile_size["y"])
+
+                        self.farthest = map_tile.rect.x
 
                         tile_group.add(map_tile)

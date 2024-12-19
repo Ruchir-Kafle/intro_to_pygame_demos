@@ -10,13 +10,13 @@ class Player(pygame.sprite.Sprite):
 
         self.player_offset = 0
 
-        self.floor = self. screen_size["y"]
+        self.floor = self.screen_size["y"]
 
         self.velocity_y = 0
         
         self.acceleration_due_to_gravity = 0.75
 
-        self.jump_maximum = 10
+        self.jump_maximum = 11
 
         self.walk_speed = 5
 
@@ -59,11 +59,6 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom == self.floor:
             self.velocity_y = -1 * self.jump_maximum
 
-            if self.velocity_y != 0:
-                self.image = pygame.transform.rotate(self.image, 45)
-            else:
-                self.image = pygame.transform.rotate(self.image, 90)
-
     def walk(self, direction):
         self.player_offset += (direction * self.walk_speed)
     
@@ -80,24 +75,27 @@ class Player(pygame.sprite.Sprite):
     def check_collisions(self, collisions):
         if collisions:
 
-            self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
-
-            if self.rect.bottom > self.floor:
-                self.rect.bottom = self.floor
-
             for block in collisions:
-
                 if block.type == 4 or block.type == 5:
-                    self.rect.x = self.initial_coordinates["x"]
-                    self.rect.bottom = self.initial_coordinates["y"]
 
-                    self.floor = self.screen_size["y"]
-                    self.player_offset = 0
+                    if self.rect.center[1] >= block.rect.center[1]:
+                        self.trigger_death()
+                    else:
+                        self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
+
+                        if self.rect.bottom > self.floor:
+                            self.rect.bottom = self.floor
         else:
             self.floor = self.screen_size["y"]
 
+    def trigger_death(self):
+        self.rect.x = self.initial_coordinates["x"]
+        self.rect.bottom = self.initial_coordinates["y"]
+
+        self.floor = self.screen_size["y"]
+        self.player_offset = 0
+
     def run(self, collisions):
-        
         # self.walk(0)
         self.apply_gravity()
         self.check_collisions(collisions)

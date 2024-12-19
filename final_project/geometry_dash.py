@@ -44,6 +44,9 @@ while not done:
 
     the_player.run(current_collisions)
 
+    if the_player.player_offset >= map.farthest:
+        the_player.trigger_death()
+
     player_group.draw(screen)
 
     pygame.display.update()
