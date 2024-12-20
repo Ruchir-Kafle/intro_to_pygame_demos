@@ -1,0 +1,280 @@
+{
+	"header" : {
+		"app":"RPG Map 2",
+		"appVersion":16.2,
+		"appAuthor":"Sebastien Benard",
+		"fileType":"JSON Map",
+		"fileVersion":10,
+		"url":"https://deepnight.net/tools/rpg-map/"
+	},
+	"version":10,
+	"w":50,
+	"h":5,
+	"skin":{
+		"base":{
+			"bg":5715237,
+			"appBg":1052441,
+			"shadows":425148975,
+			"stairs":-1998203707,
+			"walls":13530947,
+			"dirt":11562056,
+			"doors":15233090,
+			"windows":6809278,
+			"fences":11588072,
+			"furn":13403491,
+			"wallOutline":null,
+			"colorless":false
+		},
+		"plant1":6270751,
+		"plant2":6270751,
+		"water":6657005,
+		"specialWater1":16733696,
+		"specialWater2":9478433,
+		"teint":null,
+		"grid":{
+			"id":3,
+			"p":[
+				
+			]
+		},
+		"gridColor":16777215,
+		"gridIntensity":0.2,
+		"gridDepth":{
+			"id":0,
+			"p":[
+				
+			]
+		},
+		"fogColor":2433347,
+		"fogIntensity":0,
+		"seed":829084,
+		"printerFriendly":false,
+		"bubbleSkin":{
+			"id":0,
+			"p":[
+				
+			]
+		}
+	},
+	"furnDepth":{
+		"id":0,
+		"p":[
+			
+		]
+	},
+	"snapFurnToWalls":true,
+	"legend":{
+		"x":2,
+		"y":-24
+	},
+	"collisions":[
+		
+	],
+	"grounds":[
+		
+	],
+	"objects":[
+		{
+			"x":0,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":1,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":3,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":4,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":5,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":7,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":8,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":6,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":11,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":10,
+			"y":3,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":11,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":2,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":13,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":9,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":0,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":6,
+			"y":3,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":13,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":10,
+			"y":2,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":13,
+				"p":[
+					
+				]
+			},
+			"c":null
+		},
+		{
+			"x":10,
+			"y":4,
+			"w":1,
+			"h":1,
+			"t":{
+				"id":4,
+				"p":[
+					
+				]
+			},
+			"c":null
+		}
+	],
+	"labels":[
+		
+	],
+	"icons":[
+		
+	],
+	"lights":[
+		
+	],
+	"mobs":[
+		
+	],
+	"pools":[
+		
+	],
+	"imageLib":{
+		"images":[
+			
+		]
+	}
+}

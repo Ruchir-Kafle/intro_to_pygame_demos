@@ -80,11 +80,11 @@ class Player(pygame.sprite.Sprite):
 
                     if self.rect.center[1] >= block.rect.center[1]:
                         self.trigger_death()
-                    else:
-                        self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
+                else:
+                    self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
 
-                        if self.rect.bottom > self.floor:
-                            self.rect.bottom = self.floor
+                    if self.rect.bottom > self.floor:
+                        self.rect.bottom = self.floor
         else:
             self.floor = self.screen_size["y"]
 
