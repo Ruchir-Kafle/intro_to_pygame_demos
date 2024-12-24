@@ -25,8 +25,10 @@ class Map():
                 map_tile_x = (tile_object["x"] * (self.tile_size["x"])) + start_position
                 map_tile_y = (level + 1) * (self.tile_size["y"]) + (((self.screen_size["y"] // self.tile_size["y"]) - (max(self.tilemap.levels.keys()) + 1)) * self.tile_size["y"])
                 
-                map_tile = block.Block(tile_object["id"], (self.tile_size["x"], self.tile_size["y"]), {"x": map_tile_x, "y": map_tile_y})
+                map_tile = block.Block(tile_object["id"], (self.tile_size["x"], self.tile_size["y"]), {"x": map_tile_x, "y": map_tile_y}, tile_group)
 
                 self.farthest = max(self.farthest, map_tile.rect.x)
 
-                tile_group.add(map_tile)
+    def update_map(self, tiles, player):
+        for block in tiles:
+            block.rect.x = block.initial_x - player.player_offset

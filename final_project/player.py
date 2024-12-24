@@ -102,15 +102,19 @@ class Player(pygame.sprite.Sprite):
             self.floor = self.screen_size["y"]
 
     def trigger_death(self):
-        self.rect.x = self.initial_coordinates["x"]
+        self.player_offset = 0
         self.rect.bottom = self.initial_coordinates["y"]
 
         self.floor = self.screen_size["y"]
-        self.player_offset = 0
 
-    def run(self, collisions):
+    def check_out_of_bounds(self, map):
+        if self.player_offset >= map.farthest:
+            self.trigger_death()
+
+    def run(self, collisions, map):
         self.previous_frame = {"x": self.player_offset, "y": self.rect.y}
 
         self.walk(1)
         self.apply_gravity()
         self.check_collisions(collisions)
+        self.check_out_of_bounds(map)
