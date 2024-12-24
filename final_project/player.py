@@ -22,6 +22,8 @@ class Player(pygame.sprite.Sprite):
 
         self.player()
 
+        self.previous_frame = self.initial_coordinates["y"]
+
     def player(self):
         self.images = []
 
@@ -76,15 +78,24 @@ class Player(pygame.sprite.Sprite):
         if collisions:
 
             for block in collisions:
-                if block.type == 4 or block.type == 5:
+                if block.type == 0:
+
+                    self.floor = self.screen_size["y"]
 
                     if self.rect.center[1] >= block.rect.center[1]:
                         self.trigger_death()
                 else:
-                    self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
 
-                    if self.rect.bottom > self.floor:
-                        self.rect.bottom = self.floor
+                    vertical = self.rect.y - self.previous_frame
+
+                    if vertical < 0:
+                        self.trigger_death()
+                    else:
+
+                        self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
+
+                        if self.rect.bottom > self.floor:
+                            self.rect.bottom = self.floor
         else:
             self.floor = self.screen_size["y"]
 
@@ -96,6 +107,8 @@ class Player(pygame.sprite.Sprite):
         self.player_offset = 0
 
     def run(self, collisions):
+        self.previous_frame = self.rect.y
+
         # self.walk(0)
         self.apply_gravity()
         self.check_collisions(collisions)
