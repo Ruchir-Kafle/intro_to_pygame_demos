@@ -1,6 +1,5 @@
 import sys
 import pygame
-from globals.python_defaults import colors
 from final_project import player
 from final_project import create_map
 

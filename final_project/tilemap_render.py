@@ -19,5 +19,3 @@ class TileMap():
                 self.levels[level].append({"x": tile_object["x"], "id": tile_object["t"]["id"]})
             else:
                 self.levels[level] = [{"x": tile_object["x"], "id": tile_object["t"]["id"]}]
-        
-        print(self.levels)

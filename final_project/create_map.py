@@ -9,12 +9,12 @@ class Map():
 
         self.tilemap = tilemap_render.TileMap()
 
-        self.longest = 0
+        # self.longest = 0
         self.farthest = 0
         self.start_position = self.tile_size["x"] * 10
 
-        for level in self.tilemap.levels:        
-            self.longest = max(len(self.tilemap.levels[level]), self.longest)
+        # for level in self.tilemap.levels:        
+        #     self.longest = max(len(self.tilemap.levels[level]), self.longest)
 
         self.create_map(tile_group)
 
@@ -53,7 +53,7 @@ class Map():
                 map_tile = block.Block(tile_object["id"], (self.tile_size["x"], self.tile_size["y"]))
                 map_tile.rect.x = (tile_object["x"] * (self.tile_size["x"])) + start_position
                 map_tile.initial_x = (tile_object["x"] * (self.tile_size["x"])) + start_position
-                map_tile.rect.bottom = (level + 1) * (self.tile_size["y"])
+                map_tile.rect.bottom = (level + 1) * (self.tile_size["y"]) + (((self.screen_size["y"] // self.tile_size["y"]) - (max(self.tilemap.levels.keys()) + 1)) * self.tile_size["y"])
 
                 self.farthest = map_tile.rect.x
 
