@@ -34,8 +34,7 @@ while not done:
     screen.blit(background, (0, 0))
 
     for block in tile_group:
-        block.rect.x = block.initial_x
-        block.rect.x -= the_player.player_offset
+        block.rect.x = block.initial_x - the_player.player_offset
 
     tile_group.draw(screen)
 

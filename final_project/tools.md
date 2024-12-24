@@ -1,0 +1,1 @@
+https://deepnight.net/tools/rpg-map/

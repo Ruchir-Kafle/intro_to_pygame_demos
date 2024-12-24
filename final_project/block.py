@@ -2,7 +2,7 @@ import pygame
 
 class Block(pygame.sprite.Sprite):
     
-    def __init__(self, type_of_block, size):
+    def __init__(self, type_of_block, size, coordinates):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.image.load("final_project/assets/background_block.webp").convert_alpha()
@@ -20,3 +20,7 @@ class Block(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, size)
 
         self.rect = self.image.get_rect()
+        self.initial_x = coordinates["x"]
+        
+        self.rect.x = self.initial_x
+        self.rect.bottom = coordinates["y"]

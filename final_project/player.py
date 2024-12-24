@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
 
         self.player()
 
-        self.previous_frame = self.initial_coordinates["y"]
+        self.previous_frame = {"x": self.player_offset, "y": self.initial_coordinates["y"]}
 
     def player(self):
         self.images = []
@@ -68,11 +68,11 @@ class Player(pygame.sprite.Sprite):
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
             self.jump()
         
-        if pressed[pygame.K_d] or pressed[pygame.K_RIGHT]:
-            self.walk(1)
+        # if pressed[pygame.K_d] or pressed[pygame.K_RIGHT]:
+        #     self.walk(1)
         
-        if pressed[pygame.K_a] or pressed[pygame.K_LEFT]:
-            self.walk(-1)
+        # if pressed[pygame.K_a] or pressed[pygame.K_LEFT]:
+        #     self.walk(-1)
 
     def check_collisions(self, collisions):
         if collisions:
@@ -86,12 +86,14 @@ class Player(pygame.sprite.Sprite):
                         self.trigger_death()
                 else:
 
-                    vertical = self.rect.y - self.previous_frame
+                    horizontal = self.player_offset - self.previous_frame["x"]
 
-                    if vertical < 0:
-                        self.trigger_death()
+                    if self.rect.y > block.rect.top:
+                        if horizontal > 0:
+                            self.player_offset = block.rect.left
+                        elif horizontal < 0:
+                            self.player_offset = block.rect.right
                     else:
-
                         self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
 
                         if self.rect.bottom > self.floor:
@@ -107,8 +109,8 @@ class Player(pygame.sprite.Sprite):
         self.player_offset = 0
 
     def run(self, collisions):
-        self.previous_frame = self.rect.y
+        self.previous_frame = {"x": self.player_offset, "y": self.rect.y}
 
-        # self.walk(0)
+        self.walk(1)
         self.apply_gravity()
         self.check_collisions(collisions)
