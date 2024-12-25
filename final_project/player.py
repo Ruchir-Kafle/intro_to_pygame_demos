@@ -85,14 +85,8 @@ class Player(pygame.sprite.Sprite):
                     if self.rect.center[1] >= block.rect.center[1]:
                         self.trigger_death()
                 else:
-
-                    horizontal = self.player_offset - self.previous_frame["x"]
-
-                    if self.rect.y > block.rect.top:
-                        if horizontal > 0:
-                            self.player_offset = block.rect.left
-                        elif horizontal < 0:
-                            self.player_offset = block.rect.right
+                    if self.rect.top >= block.rect.top:
+                        self.trigger_death()
                     else:
                         self.floor = min(collision_object.rect.top for collision_object in collisions) + 1
 
