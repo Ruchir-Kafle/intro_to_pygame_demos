@@ -1,5 +1,6 @@
 import sys
 import pygame
+from globals.python_defaults import colors
 from final_project import win_screen
 from final_project import player
 from final_project import map
@@ -30,9 +31,10 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    if the_player.player_offset >= the_map.farthest:
+    if not the_player.player_offset >= the_map.farthest:
         if not won:
             won = True
+            screen.fill(colors.WHITE)
             screen.blit(the_win_screen.screen, (0, 0))
     else:
         background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
