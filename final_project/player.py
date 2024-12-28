@@ -1,4 +1,5 @@
 import pygame
+import time
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, tile_size, screen_size):
@@ -10,6 +11,8 @@ class Player(pygame.sprite.Sprite):
 
         self.started = False
 
+        self.is_dead = False
+
         self.player_offset = 0
 
         self.floor = self.screen_size["y"]
@@ -20,7 +23,7 @@ class Player(pygame.sprite.Sprite):
 
         self.jump_maximum = 11
 
-        self.walk_speed = 5
+        self.walk_speed = 6
 
         self.player()
 
@@ -89,7 +92,8 @@ class Player(pygame.sprite.Sprite):
                     self.floor = self.screen_size["y"]
 
                     if self.rect.center[1] >= block.rect.center[1]:
-                        self.trigger_death()
+                        if self.rect.right in range(block.rect.left + 10, block.rect.right - 10):
+                            self.trigger_death()
                 else:
                     if self.rect.top >= block.rect.top:
                         self.trigger_death()
@@ -102,14 +106,22 @@ class Player(pygame.sprite.Sprite):
             self.floor = self.screen_size["y"]
 
     def trigger_death(self):
+        self.is_dead = True
+
+        time.sleep(0.5)
+
         self.player_offset = 0
         self.rect.bottom = self.initial_coordinates["y"]
 
         self.floor = self.screen_size["y"]
 
-    def run(self, collisions):
-        self.previous_frame = {"x": self.player_offset, "y": self.rect.y}
+        self.is_dead = False
 
-        self.walk(1)
-        self.apply_gravity()
-        self.check_collisions(collisions)
+    def run(self, collisions):
+
+        if not self.is_dead:
+            self.previous_frame = {"x": self.player_offset, "y": self.rect.y}
+            
+            self.walk(1)
+            self.apply_gravity()
+            self.check_collisions(collisions)
