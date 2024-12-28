@@ -8,6 +8,8 @@ class Player(pygame.sprite.Sprite):
         self.tile_size = tile_size
         self.initial_coordinates = {"x": self.tile_size["x"] * 10, "y": self.screen_size["y"]}
 
+        self.started = False
+
         self.player_offset = 0
 
         self.floor = self.screen_size["y"]
@@ -58,11 +60,15 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.velocity_y
 
     def jump(self):
+        if not self.started:
+            self.started = True
+
         if self.rect.bottom == self.floor:
             self.velocity_y = -1 * self.jump_maximum
 
     def walk(self, direction):
-        self.player_offset += (direction * self.walk_speed)
+        if self.started:
+            self.player_offset += (direction * self.walk_speed)
     
     def process_user_input(self, pressed):
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
@@ -101,14 +107,9 @@ class Player(pygame.sprite.Sprite):
 
         self.floor = self.screen_size["y"]
 
-    def check_out_of_bounds(self, map):
-        if self.player_offset >= map.farthest:
-            self.trigger_death()
-
-    def run(self, collisions, map):
+    def run(self, collisions):
         self.previous_frame = {"x": self.player_offset, "y": self.rect.y}
 
         self.walk(1)
         self.apply_gravity()
         self.check_collisions(collisions)
-        self.check_out_of_bounds(map)

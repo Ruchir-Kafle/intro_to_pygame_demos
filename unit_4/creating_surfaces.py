@@ -49,7 +49,7 @@ while not done:
     # Type out your code below! Let's make a basic surface and then an image surface!
     block = pygame.Surface((200, 200))
     block.fill(colors.RED)
-    screen.blit(block, ((screen_size["x"] - block.get_width() - 50, screen_size["y"] - block.get_height())))
+    screen.blit(block, (screen_size["x"] - block.get_width() - 50, screen_size["y"] - block.get_height()))
 
     image = pygame.image.load("unit_4/do_not_touch/geometry_dash_block.png").convert_alpha()
     screen.blit(image, (50, screen_size["y"] - image.get_height()))

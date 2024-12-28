@@ -5,7 +5,6 @@ class Block(pygame.sprite.Sprite):
     def __init__(self, type_of_block, size, coordinates, tile_group):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load("final_project/assets/background_block.webp").convert_alpha()
         self.type = type_of_block
 
         if self.type == 0:
