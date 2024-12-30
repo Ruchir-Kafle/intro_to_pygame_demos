@@ -30,7 +30,7 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    if the_player.player_offset >= the_map.farthest:
+    if not the_player.player_offset >= the_map.farthest:
         if not won:
             won = True
             screen.fill(colors.WHITE)

@@ -1,6 +1,7 @@
 import pygame
 from globals.python_defaults import colors
 from final_project import button
+from globals.python_defaults import fonts
 
 class Win_Screen():
     def __init__(self, screen_size):
@@ -11,6 +12,6 @@ class Win_Screen():
         self.screen = pygame.Surface((screen_size["x"], screen_size["y"]), pygame.SRCALPHA)
         self.screen.fill(color)
 
-        a_button = button.Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 0}, group=button_group, color=colors.BLUE)
+        a_button = button.Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 0}, group=button_group, color=colors.BLUE, text="Play Again", font=pygame.font.SysFont(fonts.ARIAL, 70))
         
         button_group.draw(self.screen)
