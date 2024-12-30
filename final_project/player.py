@@ -21,11 +21,11 @@ class Player(pygame.sprite.Sprite):
         self.acceleration_due_to_gravity = 0.75
         self.jump_maximum = 11
 
-        self.player()
+        self.instantiate_player()
 
         self.previous_frame = {"x": self.player_offset, "y": self.initial_coordinates["y"]}
 
-    def player(self):
+    def instantiate_player(self):
         self.images = []
 
         self.img = pygame.image.load("final_project/assets/player.webp").convert_alpha()
@@ -126,7 +126,7 @@ class Player(pygame.sprite.Sprite):
             if self.should_jump:
                 self.jump()
 
-            self.walk(1)
+            self.walk(direction=1)
 
             self.apply_gravity()
-            self.check_collisions(collisions)
+            self.check_collisions(collisions=collisions)

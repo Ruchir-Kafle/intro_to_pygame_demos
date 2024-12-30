@@ -11,8 +11,6 @@ class Win_Screen():
         self.screen = pygame.Surface((screen_size["x"], screen_size["y"]), pygame.SRCALPHA)
         self.screen.fill(color)
 
-        a_button = button.Button(screen_size, {"x": 500, "y": 500}, {"x": 7, "y": 7}, button_group)
-
-        print(a_button)
+        a_button = button.Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 0}, group=button_group, color=colors.BLUE)
         
         button_group.draw(self.screen)

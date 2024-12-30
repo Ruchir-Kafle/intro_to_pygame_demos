@@ -2,7 +2,7 @@ import pygame
 
 class Block(pygame.sprite.Sprite):
     
-    def __init__(self, type_of_block, size, coordinates, tile_group):
+    def __init__(self, type_of_block, size, coordinates, group):
         pygame.sprite.Sprite.__init__(self)
 
         self.type = type_of_block
@@ -24,4 +24,4 @@ class Block(pygame.sprite.Sprite):
         self.rect.x = self.initial_x
         self.rect.bottom = coordinates["y"]
 
-        tile_group.add(self)
+        group.add(self)

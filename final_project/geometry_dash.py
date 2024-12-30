@@ -16,14 +16,13 @@ pygame.display.set_caption("Final Project: Geometry Dash")
 tile_size = {"x": 40, "y": 40}
 
 player_group = pygame.sprite.Group()
-tile_group = pygame.sprite.Group()
 
-the_player = player.Player(tile_size, screen_size)
+the_player = player.Player(tile_size=tile_size, screen_size=screen_size)
 player_group.add(the_player)
 
-the_map = map.Map(tile_size, screen_size, tile_group)
+the_map = map.Map(tile_size=tile_size, screen_size=screen_size)
 
-the_win_screen = win_screen.Win_Screen(screen_size)
+the_win_screen = win_screen.Win_Screen(screen_size=screen_size)
 won = False
 
 while not done:
@@ -31,7 +30,7 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    if not the_player.player_offset >= the_map.farthest:
+    if the_player.player_offset >= the_map.farthest:
         if not won:
             won = True
             screen.fill(colors.WHITE)
@@ -39,16 +38,16 @@ while not done:
     else:
         background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
         
-        the_map.update_map(tile_group, the_player)
+        the_map.update_map(player=the_player)
 
         pressed = pygame.key.get_pressed()
         the_player.process_user_input(pressed)
 
-        current_collisions = pygame.sprite.spritecollide(the_player, tile_group, False)
-        the_player.run(current_collisions)
+        current_collisions = pygame.sprite.spritecollide(the_player, the_map.tile_group, False)
+        the_player.run(collisions=current_collisions)
 
         screen.blit(background, (0, 0))
-        tile_group.draw(screen)
+        the_map.tile_group.draw(screen)
         player_group.draw(screen)
 
     pygame.display.update()
