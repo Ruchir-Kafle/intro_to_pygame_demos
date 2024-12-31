@@ -14,12 +14,12 @@ class Win_Screen():
 
         font = pygame.font.SysFont(fonts.ARIAL, 70)
 
-        play_again_button.Play_Again_Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 0}, group=self.button_group, color=colors.BLUE, text="Play Again", font=font)
+        play_again_button.Play_Again_Button(size={"x": 400, "y": 100}, coordinates={"x": ((screen_size["x"] / 2) - (400 / 2)), "y": (screen_size["y"] / 2) - (100 / 2)}, group=self.button_group, color=colors.BLUE, text="Play Again", font=font)
 
         self.update()
 
-    def update(self, click=False, player=None):
+    def update(self):
         for button in self.button_group:
-            button.hover(clicked=click, player=player)
+            button.hover()
 
         self.button_group.draw(self.screen)

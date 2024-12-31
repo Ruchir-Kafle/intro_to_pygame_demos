@@ -32,7 +32,13 @@ class Game():
             if event.type == pygame.QUIT:
                 self.done = True
             if event.type == pygame.MOUSEBUTTONUP:
-                self.the_win_screen.update(click=True, player=self.the_player)
+                play_again = False
+
+                for button in self.the_win_screen.button_group:
+                    play_again = (play_again or button.hover(clicked=True, player=self.the_player))
+
+                if play_again:
+                    self.won = False
 
     def update_components(self):
         if not self.won:

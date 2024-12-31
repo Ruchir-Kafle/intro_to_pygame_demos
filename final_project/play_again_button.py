@@ -37,7 +37,7 @@ class Play_Again_Button(pygame.sprite.Sprite):
 
         self.image.blit(self.text, (self.text_rect.x, self.text_rect.y))
 
-    def hover(self, clicked, player):
+    def hover(self, clicked=False, player=None):
         mouse_position = pygame.mouse.get_pos()
         all_x = range(self.rect.left, self.rect.right + 1)
         all_y = range(self.rect.top, self.rect.bottom + 1)
@@ -49,9 +49,11 @@ class Play_Again_Button(pygame.sprite.Sprite):
                 self.image.blit(self.text, (self.text_rect.x, self.text_rect.y))
 
                 if clicked:
-                    print("x")
+                    player.spawn()
 
-                return
+                    return True
+
+                return False
         
         self.hovering = False
         self.image.fill(colors.BLUE)
