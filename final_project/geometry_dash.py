@@ -5,57 +5,76 @@ from final_project import win_screen
 from final_project import player
 from final_project import map
 
-pygame.init()
+class Game():
+    def __init__(self):
+        pygame.init()
 
-done = False
-clock = pygame.time.Clock()
+        self.done = False
+        self.clock = pygame.time.Clock()
 
-screen_size = {"x": 1160, "y": 800}
-screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
-pygame.display.set_caption("Final Project: Geometry Dash")
-tile_size = {"x": 40, "y": 40}
+        self.screen_size = {"x": 1160, "y": 800}
+        self.screen = pygame.display.set_mode((self.screen_size["x"], self.screen_size["y"]))
+        pygame.display.set_caption("Final Project: Geometry Dash")
+        self.tile_size = {"x": 40, "y": 40}
 
-player_group = pygame.sprite.Group()
+        self.player_group = pygame.sprite.Group()
 
-the_player = player.Player(tile_size=tile_size, screen_size=screen_size)
-player_group.add(the_player)
+        self.the_player = player.Player(tile_size=self.tile_size, screen_size=self.screen_size)
+        self.player_group.add(self.the_player)
 
-the_map = map.Map(tile_size=tile_size, screen_size=screen_size)
+        self.the_map = map.Map(tile_size=self.tile_size, screen_size=self.screen_size)
 
-the_win_screen = win_screen.Win_Screen(screen_size=screen_size)
-won = True
+        self.the_win_screen = win_screen.Win_Screen(screen_size=self.screen_size)
+        self.won = False
 
-while not done:
-    for event in pygame.event.get():    
-        if event.type == pygame.QUIT:
-            done = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            the_win_screen.update(click=True, player=the_player)
-    
-    background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
-    
-    if not won:
-        the_map.update_map(player=the_player)
+    def user_input(self):
+        for event in pygame.event.get():    
+            if event.type == pygame.QUIT:
+                self.done = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                self.the_win_screen.update(click=True, player=self.the_player)
 
-        pressed = pygame.key.get_pressed()
-        the_player.process_user_input(pressed=pressed)
+    def update_components(self):
+        if not self.won:
+            self.the_map.update_map(player=self.the_player)
 
-        current_collisions = pygame.sprite.spritecollide(the_player, the_map.tile_group, False)
-        the_player.run(collisions=current_collisions)
+            pressed = pygame.key.get_pressed()
+            self.the_player.process_user_input(pressed=pressed)
 
-    screen.blit(background, (0, 0))
-    the_map.tile_group.draw(screen)
-    player_group.draw(screen)
+            current_collisions = pygame.sprite.spritecollide(self.the_player, self.the_map.tile_group, False)
+            self.the_player.run(collisions=current_collisions)
 
-    if the_player.player_offset >= the_map.farthest or won:
-        won = True
+    def draw(self):
+        self.screen.blit(self.background, (0, 0))
+        self.the_map.tile_group.draw(self.screen)
+        self.player_group.draw(self.screen)
 
-        the_win_screen.update()
+    def check_for_win(self):
+        if self.the_player.player_offset >= self.the_map.farthest or self.won:
+            self.won = True
 
-        screen.blit(the_win_screen.screen, (0, 0))
+            self.the_win_screen.update()
 
-    pygame.display.update()
-    clock.tick(60)
+            self.screen.blit(self.the_win_screen.screen, (0, 0))
 
-pygame.quit()
-sys.exit()
+    def run(self):
+        while not self.done:
+            self.background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (self.screen_size["x"], self.screen_size["y"]))
+
+            self.user_input()
+
+            self.update_components()
+
+            self.draw()
+
+            self.check_for_win()
+
+            pygame.display.update()
+            self.clock.tick(60)
+
+        pygame.quit()
+        sys.exit()
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
