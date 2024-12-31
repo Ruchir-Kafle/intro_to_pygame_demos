@@ -23,32 +23,36 @@ player_group.add(the_player)
 the_map = map.Map(tile_size=tile_size, screen_size=screen_size)
 
 the_win_screen = win_screen.Win_Screen(screen_size=screen_size)
-won = False
+won = True
 
 while not done:
     for event in pygame.event.get():    
         if event.type == pygame.QUIT:
             done = True
-
-    if not the_player.player_offset >= the_map.farthest:
-        if not won:
-            won = True
-            screen.fill(colors.WHITE)
-            screen.blit(the_win_screen.screen, (0, 0))
-    else:
-        background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
-        
+        if event.type == pygame.MOUSEBUTTONUP:
+            the_win_screen.update(click=True)
+    
+    background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
+    
+    if not won:
         the_map.update_map(player=the_player)
 
         pressed = pygame.key.get_pressed()
-        the_player.process_user_input(pressed)
+        the_player.process_user_input(pressed=pressed)
 
         current_collisions = pygame.sprite.spritecollide(the_player, the_map.tile_group, False)
         the_player.run(collisions=current_collisions)
 
-        screen.blit(background, (0, 0))
-        the_map.tile_group.draw(screen)
-        player_group.draw(screen)
+    screen.blit(background, (0, 0))
+    the_map.tile_group.draw(screen)
+    player_group.draw(screen)
+
+    if the_player.player_offset >= the_map.farthest or won:
+        won = True
+
+        the_win_screen.update()
+
+        screen.blit(the_win_screen.screen, (0, 0))
 
     pygame.display.update()
     clock.tick(60)
