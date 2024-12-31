@@ -1,7 +1,7 @@
 import pygame
 from globals.python_defaults import colors
 
-class Button(pygame.sprite.Sprite):
+class Play_Again_Button(pygame.sprite.Sprite):
     
     def __init__(self, size, coordinates, group, color, text, font):
         pygame.sprite.Sprite.__init__(self)
@@ -37,7 +37,7 @@ class Button(pygame.sprite.Sprite):
 
         self.image.blit(self.text, (self.text_rect.x, self.text_rect.y))
 
-    def hover(self, clicked):
+    def hover(self, clicked, player):
         mouse_position = pygame.mouse.get_pos()
         all_x = range(self.rect.left, self.rect.right + 1)
         all_y = range(self.rect.top, self.rect.bottom + 1)
@@ -50,7 +50,7 @@ class Button(pygame.sprite.Sprite):
 
                 if clicked:
                     print("x")
-                
+
                 return
         
         self.hovering = False

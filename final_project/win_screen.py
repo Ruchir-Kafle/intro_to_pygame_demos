@@ -1,6 +1,6 @@
 import pygame
 from globals.python_defaults import colors
-from final_project import button
+from final_project import play_again_button
 from globals.python_defaults import fonts
 
 class Win_Screen():
@@ -14,17 +14,12 @@ class Win_Screen():
 
         font = pygame.font.SysFont(fonts.ARIAL, 70)
 
-        button.Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 0}, group=self.button_group, color=colors.BLUE, text="Play Again", font=font)
-
-        # Text with multiple buttons doesn't seem to be working, revisit later if necessary.
-        # button.Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 150}, group=self.button_group, color=colors.BLUE, text="Play Again", font=font)
-
-        # button.Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 300}, group=self.button_group, color=colors.BLUE, text="Play Again", font=font)
+        play_again_button.Play_Again_Button(size={"x": 400, "y": 100}, coordinates={"x": 0, "y": 0}, group=self.button_group, color=colors.BLUE, text="Play Again", font=font)
 
         self.update()
 
-    def update(self, click=False):
+    def update(self, click=False, player=None):
         for button in self.button_group:
-            button.hover(click)
+            button.hover(clicked=click, player=player)
 
         self.button_group.draw(self.screen)

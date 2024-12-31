@@ -30,7 +30,7 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.MOUSEBUTTONUP:
-            the_win_screen.update(click=True)
+            the_win_screen.update(click=True, player=the_player)
     
     background = pygame.transform.scale(pygame.image.load("final_project/assets/background.png"), (screen_size["x"], screen_size["y"]))
     
