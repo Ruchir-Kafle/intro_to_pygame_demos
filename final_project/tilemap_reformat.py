@@ -15,7 +15,9 @@ class TileMap():
             all_levels = self.levels.keys()
             level = tile_object["y"]
 
-            if level in all_levels:
-                self.levels[level].append({"x": tile_object["x"], "id": tile_object["t"]["id"]})
-            else:
-                self.levels[level] = [{"x": tile_object["x"], "id": tile_object["t"]["id"]}]
+            for y in range(0, tile_object["h"]):
+                for object in range(0, tile_object["w"]):
+                    if level + y in all_levels:
+                        self.levels[level + y].append({"x": tile_object["x"] + object, "id": tile_object["t"]["id"]})
+                    else:
+                        self.levels[level + y] = [{"x": tile_object["x"] + object, "id": tile_object["t"]["id"]}]
