@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.should_jump = False
 
         self.player_offset = 0
-        self.walk_speed = 6
+        self.walk_speed = 6.25
 
         self.floor = self.screen_size["y"]
         self.velocity_y = 0
