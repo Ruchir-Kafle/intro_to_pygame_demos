@@ -76,7 +76,6 @@ class Game():
             self.check_for_win()
 
             pygame.display.update()
-            self.clock.tick(60)
 
         pygame.quit()
         sys.exit()

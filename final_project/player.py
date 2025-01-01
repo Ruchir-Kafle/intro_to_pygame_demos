@@ -18,12 +18,12 @@ class Player(pygame.sprite.Sprite):
 
         self.floor = self.screen_size["y"]
         self.velocity_y = 0
-        self.acceleration_due_to_gravity = 0.75
+        self.acceleration_due_to_gravity = 1
         self.jump_maximum = 11
 
-        self.instantiate_player()
+        self.previous_time = time.time()
 
-        self.previous_frame = {"x": self.player_offset, "y": self.initial_coordinates["y"]}
+        self.instantiate_player()
 
     def instantiate_player(self):
         self.images = []
@@ -47,8 +47,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = self.store_x
-        self.rect.bottom = self.store_y
 
+        self.rect.bottom = self.store_y
+        
     def apply_gravity(self):
         if self.rect.bottom + self.velocity_y < self.floor:
             self.velocity_y += self.acceleration_due_to_gravity
@@ -56,7 +57,7 @@ class Player(pygame.sprite.Sprite):
             self.velocity_y = 0
             self.rect.bottom = self.floor
 
-        self.rect.y += self.velocity_y
+        self.rect.y += self.velocity_y * (self.delta_time / 1.5)
 
     def jump(self):
         if self.started:
@@ -69,17 +70,11 @@ class Player(pygame.sprite.Sprite):
 
     def walk(self, direction):
         if self.started:
-            self.player_offset += (direction * self.walk_speed)
+            self.player_offset += (direction * self.walk_speed) * (self.delta_time / 1.25)
     
     def process_user_input(self, pressed):
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
             self.should_jump = True
-
-        # if pressed[pygame.K_d] or pressed[pygame.K_RIGHT]:
-        #     self.walk(1)
-        
-        # if pressed[pygame.K_a] or pressed[pygame.K_LEFT]:
-        #     self.walk(-1)
 
     def check_collisions(self, collisions):
         if collisions:
@@ -120,9 +115,10 @@ class Player(pygame.sprite.Sprite):
 
     def run(self, collisions):
 
-        if not self.is_dead:
-            self.previous_frame = {"x": self.player_offset, "y": self.rect.y}
-            
+        if not self.is_dead:  
+            self.delta_time = (time.time() - self.previous_time) * 60
+            self.previous_time = time.time()
+
             if self.should_jump:
                 self.jump()
 
