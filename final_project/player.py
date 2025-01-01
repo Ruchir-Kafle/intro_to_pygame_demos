@@ -70,7 +70,7 @@ class Player(pygame.sprite.Sprite):
 
     def walk(self, direction):
         if self.started:
-            self.player_offset += (direction * self.walk_speed) * (self.delta_time / 1.25)
+            self.player_offset += (direction * self.walk_speed) * (self.delta_time / 1.1)
     
     def process_user_input(self, pressed):
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
@@ -85,7 +85,7 @@ class Player(pygame.sprite.Sprite):
                     self.floor = self.screen_size["y"]
 
                     if self.rect.center[1] >= block.rect.center[1]:
-                        if self.rect.right in range(block.rect.left + 10, block.rect.right - 10):
+                        if self.rect.right > block.rect.left + 10 or self.rect.left < block.rect.right - 10:
                             self.trigger_death()
                 else:
                     if self.rect.top >= block.rect.top:
