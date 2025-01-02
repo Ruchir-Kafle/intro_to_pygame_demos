@@ -10,7 +10,6 @@ class Game():
         pygame.init()
 
         self.done = False
-        self.clock = pygame.time.Clock()
 
         self.screen_size = {"x": 1160, "y": 800}
         self.screen = pygame.display.set_mode((self.screen_size["x"], self.screen_size["y"]))

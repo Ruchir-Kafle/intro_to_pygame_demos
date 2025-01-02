@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         if self.started:
             if self.rect.bottom == self.floor:
-                self.velocity_y = -1 * self.jump_maximum
+                self.velocity_y = -1 * self.jump_maximum * (self.delta_time * 2.5)
         else:
             self.started = True
 
@@ -70,7 +70,7 @@ class Player(pygame.sprite.Sprite):
 
     def walk(self, direction):
         if self.started:
-            self.player_offset += (direction * self.walk_speed) * (self.delta_time / 1.1)
+            self.player_offset += (direction * self.walk_speed) * (self.delta_time / 0.9)
     
     def process_user_input(self, pressed):
         if pressed[pygame.K_SPACE] or pressed[pygame.K_w] or pressed[pygame.K_UP]:
