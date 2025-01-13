@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         if self.started:
             if self.rect.bottom == self.floor:
-                self.velocity_y = -1 * self.jump_maximum * (self.delta_time * 2.5)
+                self.velocity_y = -1 * self.jump_maximum * (1.5)
         else:
             self.started = True
 
