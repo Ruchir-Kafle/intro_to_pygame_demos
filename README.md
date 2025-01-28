@@ -15,8 +15,6 @@ Unit 8: Classes
     - Project: Making a player using the Sprites class (complex character :O)
 Unit 9: Frames & DeltaTime
     - Project: User changes fps to change game result.
-Unit 10: Introduction to Animation
-    - Project: Making an animated player (example will be provided)
 Final Project: Geometry Dash
 Extra Lesson: JSON
     - Project: Saving data between sessions
