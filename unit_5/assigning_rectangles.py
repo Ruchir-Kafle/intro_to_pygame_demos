@@ -22,7 +22,7 @@ screen_size = {"x": 1000, "y": 700}
 screen = pygame.display.set_mode((screen_size["x"], screen_size["y"]))
 
 # Giving the screen a name.
-pygame.display.set_caption("unit-04: Images and Surfaces")
+pygame.display.set_caption("unit-05: Images and Surfaces")
 
 # Player variables, DO NOT TOUCH!
 the_player = player.Player(screen_size)
