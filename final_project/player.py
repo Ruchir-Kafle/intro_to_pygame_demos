@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.floor = self.screen_size["y"]
         self.velocity_y = 0
         self.acceleration_due_to_gravity = 1
-        self.jump_maximum = 11
+        self.jump_maximum = 12
 
         self.previous_time = time.time()
 
